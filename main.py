@@ -2,10 +2,12 @@ import os
 os.environ["SDL_AUDIODRIVER"] = "dummy"
 os.environ["SDL_VIDEODRIVER"] = "dummy"
 
+import sys
 import pygame
 from constants import *
 from player import *
 from asteroidfield import *
+from circleshape import *
 
 def main():
     pygame.init()
@@ -31,8 +33,12 @@ def main():
                 return
        
         screen.fill((0, 0, 0))
-
         updatable.update(dt)
+        
+        for a in asteroids:
+            if player.colliding(a):
+                print("Game Over!")
+                sys.exit()
         
         for d in drawable: 
             d.draw(screen)
